@@ -1,0 +1,97 @@
+/* ...existing code... */
+.center-screen { 
+  border-radius: 10px;
+  margin-top: 10% ;  
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #EBE5C2;
+  margin: 10%;
+  margin-bottom: 20%;
+  margin-top: 5%;
+
+}
+.card {
+  background: #F8F3D9;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+  padding: 32px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start; 
+}
+.flex-col-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.button-row {
+  margin-bottom: 16px;
+  display: flex;
+  gap: 8px;
+}
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+}
+.btn-clear {
+  background: #504B38;
+  color: #fff;
+}
+.btn-clear:hover {
+  background: #B17F59;
+}
+.btn-submit {
+  background: #B9B28A;
+  color: #fff;
+}
+.btn-submit:hover {
+  background: #626F47;
+}
+.canvas-border {
+  border: 3px solid #000;
+  border-radius: 10px;
+}
+.same-size-div {
+  border: 1.5px solid #3b82f6;
+  border-radius: 10px;
+  width: 250px;
+  height: 250px;
+}
+
+
+.tech-stack {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.tech-stack h2 {
+  font-size: 30px;
+  margin-bottom: 16px;
+}
+
+.tech-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.tech-icons img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  transition: transform 0.3s;
+}
+
+.tech-icons img:hover {
+  transform: scale(1.1);
+}
+
+body{
+    background-color: #F8F3D9;
+}

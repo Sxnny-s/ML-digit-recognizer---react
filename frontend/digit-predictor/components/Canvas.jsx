@@ -1,19 +1,21 @@
-import React, {useRef} from 'react'
+import React, {useRef , useState} from 'react'
 import axios from 'axios'
 import { ReactSketchCanvas } from "react-sketch-canvas"
 import '../src/index.css'
 
 const Canvas = () => {
     const canvasRef = useRef(null);
+    const [prediction, setPrediction] = useState(null);
 
     const clear = () => {
         canvasRef.current.clearCanvas();
+        setPrediction(null)
     }
 
     function convertTo28x28Grayscale(imageUrl) {
     return new Promise((resolve) => {
     const img = new Image();
-    img.crossOrigin = "Anonymous"; // In case the image is from another domain
+    img.crossOrigin = "Anonymous"; 
     img.src = imageUrl;
 
     img.onload = () => {
@@ -30,7 +32,7 @@ const Canvas = () => {
       const imageData = ctx.getImageData(0, 0, 28, 28);
       const data = imageData.data;
 
-      console.log('imageData',imageData)
+     
 
       // Step 4: Convert to grayscale array (0-255)
       const grayscale = [];
@@ -38,7 +40,7 @@ const Canvas = () => {
         const r = 255 - data[i];
         const g = 255 - data[i + 1];
         const b = 255 - data[i + 2];
-        // Grayscale = average (or use luminance formula)
+        
         const gray = Math.round((r + g + b) / 3);
         grayscale.push(gray);
       }
@@ -54,11 +56,9 @@ const Canvas = () => {
         console.log('submitting....')
         const dataUrl = await canvasRef.current.exportImage()
         const res = await convertTo28x28Grayscale(dataUrl)
+        const response = await axios.post('http://127.0.0.1:5000/predict', res)
         
-
-        const prediction = await axios.post('http://127.0.0.1:5000/predict', res)
-        console.log('pred',prediction.data)
-
+        setPrediction(Object.keys(response.data)[0])
         
     }
 
@@ -67,7 +67,7 @@ const Canvas = () => {
 
   <>
   {/* Description */}
-    <div class="container">
+    <div className="container">
       <h1>Welcome to My Machine Learning Project</h1>
         <p>
           This app uses a Convolutional Neural Network (CNN) trained on the MNIST dataset — a large collection of 42,002 hand-drawn digits (0–9), each represented as a 28×28 grayscale image (784 pixels).<br /><br />
@@ -75,9 +75,9 @@ const Canvas = () => {
           Draw a number in the sketchpad, and the model will predict which digit it recognizes.
         </p>
 
-         <div class="tech-stack">
+         <div className="tech-stack">
           <h2>Tech Stack Used</h2>
-            <div class="tech-icons">
+            <div className="tech-icons">
               <img src="https://imgs.search.brave.com/yExGzP_rRbFvw5BBq8_QjOOL0sAngN68gLelCeFzM_4/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4z/ZC5pY29uc2NvdXQu/Y29tLzNkL2ZyZWUv/dGh1bWIvZnJlZS1w/eXRob24tM2QtaWNv/bi1kb3dubG9hZC1p/bi1wbmctYmxlbmQt/ZmJ4LWdsdGYtZmls/ZS1mb3JtYXRzLS1o/dG1sLWxvZ28tYy1z/b2Z0d2FyZS1wYWNr/LWxvZ29zLWljb25z/LTUzMjYzODUucG5n/P2Y9d2VicA" alt="Python" />
               <img src="https://imgs.search.brave.com/Vy6_r-lksoh5f0oOY-g1taWNk7JgYP8F66bcP1CANn0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9naXRo/dWIuY29tL2Zhc3Rh/aS9sb2dvcy9yYXcv/bWFpbi9mYXN0YWlf/c21hbGwucG5n" alt="Fastai" />
               <img src="https://imgs.search.brave.com/lJIuDCRwCv9fagyLYNUrKTpXWEAPk5eXuDP4INyW5Z0/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWFn/ZXMuc2Vla2xvZ28u/Y29tL2xvZ28tcG5n/LzUwLzIvcHl0b3Jj/aC1sb2dvLXBuZ19z/ZWVrbG9nby01MDMy/NjcucG5n" alt="PyTorch" />
@@ -116,8 +116,17 @@ const Canvas = () => {
             strokeColor="black"
           />
         </div>
-       
-        
+
+        {/* Prediction card */}
+        <div className="same-size-div" style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <h3 style={{ marginBottom: "12px" }}>Prediction</h3>
+
+          {prediction !== null ? (
+            <div style={{ fontSize: "2rem", fontWeight: "bold" }}>{prediction}</div>
+          ) : (
+            <div style={{ color: "#888" }}>No prediction yet</div>
+          )}
+        </div>
       </div>
     </div>
   

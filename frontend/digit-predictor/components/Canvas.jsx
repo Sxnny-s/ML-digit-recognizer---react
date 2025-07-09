@@ -56,7 +56,7 @@ const Canvas = () => {
         console.log('submitting....')
         const dataUrl = await canvasRef.current.exportImage()
         const res = await convertTo28x28Grayscale(dataUrl)
-        const response = await axios.post('https://ml-digit-recognizer-react-7.onrender.com', res)
+        const response = await axios.post('https://ml-digit-recognizer-react-7.onrender.com/predict', res)
         
         setPrediction(Object.keys(response.data)[0])
         

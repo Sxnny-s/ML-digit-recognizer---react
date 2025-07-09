@@ -9,7 +9,7 @@ pathlib.WindowsPath = pathlib.PosixPath
 from fastai.vision.all import load_learner
 
 app = Flask(__name__)
-CORS(app, origins=["https://ml-digit-recognizer-react-git-main-wiseamenra1-8972s-projects.vercel.app"],
+CORS(app, origins=["https://ml-digit-recognizer-react.vercel.app"],
      methods=["GET", "POST", "OPTIONS"],
      allow_headers=["Content-Type"],
      supports_credentials=True)

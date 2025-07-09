@@ -52,37 +52,38 @@ const Canvas = () => {
 }
 
 
-    // const submit = async () => {
-    //     console.log('submitting....')
-    //     const dataUrl = await canvasRef.current.exportImage()
-    //     const res = await convertTo28x28Grayscale(dataUrl)
-    //     const response = await axios.post('https://ml-digit-recognizer-react-7.onrender.com/predict', res)
+    const submit = async () => {
+        console.log('submitting....')
+        const dataUrl = await canvasRef.current.exportImage()
+        const res = await convertTo28x28Grayscale(dataUrl)
+        const response = await axios.post('https://ml-digit-recognizer-react-7.onrender.com/predict', res)
         
-    //     setPrediction(Object.keys(response.data)[0])
+        setPrediction(Object.keys(response.data)[0])
         
-    // }
+    }
 
     //test
-    const submit = async () => {
-    try {
-    if (!canvasRef.current) throw new Error('Canvas ref missing!')
+//     const submit = async () => {
+//     try {
+//       console.log('submitting....')
+//     if (!canvasRef.current) throw new Error('Canvas ref missing!')
 
-    const dataUrl = await canvasRef.current.exportImage()
-    if (!dataUrl) throw new Error('Failed to export image.')
+//     const dataUrl = await canvasRef.current.exportImage()
+//     if (!dataUrl) throw new Error('Failed to export image.')
 
-    const res = await convertTo28x28Grayscale(dataUrl)
+//     const res = await convertTo28x28Grayscale(dataUrl)
 
-    const response = await axios.post(
-      'https://ml-digit-recognizer-react-7.onrender.com/predict',
-      res
-    )
+//     const response = await axios.post(
+//       'https://ml-digit-recognizer-react-7.onrender.com/predict',
+//       res
+//     )
 
-    setPrediction(Object.keys(response.data)[0])
-  } catch (error) {
-    console.error('Submit error:', error)
-    alert('Error submitting prediction: ' + error.message)
-  }
-}
+//     setPrediction(Object.keys(response.data)[0])
+//   } catch (error) {
+//     console.error('Submit error:', error)
+//     alert('Error submitting prediction: ' + error.message)
+//   }
+// }
 
  return (
 

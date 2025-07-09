@@ -9,10 +9,13 @@ pathlib.WindowsPath = pathlib.PosixPath
 from fastai.vision.all import load_learner
 
 app = Flask(__name__)
-CORS(app, origins=["https://ml-digit-recognizer-react.vercel.app"],
-     methods=["GET", "POST", "OPTIONS"],
-     allow_headers=["Content-Type"],
+CORS(app, origins=[
+    "https://ml-digit-recognizer-react.vercel.app",
+    "https://ml-digit-recognizer-react-git-main-wiseamenra1-8972s-projects.vercel.app"
+], methods=["GET", "POST", "OPTIONS"], 
+     allow_headers=["Content-Type"], 
      supports_credentials=True)
+
 
 def get_x_fn(row):
     return PILImage.create(np.repeat(row[1:].values.reshape(28, 28, 1), 3, axis=2).astype(np.uint8))

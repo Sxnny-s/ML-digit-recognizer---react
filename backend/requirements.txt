@@ -1,5 +1,5 @@
 Flask
 flask-cors
-numpy
+numpy<2.0
 pillow
 fastai==2.7.12

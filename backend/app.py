@@ -3,6 +3,9 @@ from flask_cors import CORS
 import numpy as np
 from fastai.learner import load_learner
 
+import pathlib
+pathlib.WindowsPath = pathlib.PosixPath
+from fastai.vision.all import load_learner
 
 app = Flask(__name__)
 
